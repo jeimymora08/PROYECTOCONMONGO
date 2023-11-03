@@ -6,14 +6,12 @@ require("./db.js");
 app.use(express.json()); 
 app.use(cors());
 const Producto = require("./Models/productos"); 
-const User = require("./Models/users");
+const Usuario = require ("./Models/Users.js");
 
 //rutas del programa//
 
 app.get("/", (req, res) => {
-  res.send(
-    "MORISGARPRODUCTOS"
-  );
+  res.send("MORISGARPRODUCTOS");
 });
 
 app.post("/Producto", async  (req, res) => {
@@ -22,5 +20,15 @@ app.post("/Producto", async  (req, res) => {
   const nuevoProducto =  await  producto.save({ name: name });
   res.json("Producto creado correctamente");
 });
+
+
+app.post("/Usuario", async  (req, res) => {
+  const name = req.query.name;
+  let usuario = new Usuario ({name : name});
+  const nuevoUsuario =  await  Usuario.create({ name: name });
+  res.json("Usuario creado correctamente");
+});
+
+
 
 module.exports = { app, port };
